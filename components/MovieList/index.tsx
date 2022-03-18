@@ -36,15 +36,17 @@ function MovieList() {
         <Grid item xs={12} md={6}>
           <Demo>
             <List>
-              <ListItem sx={{ pl: 0, pb: 0 }}>
-                <ListItemText primary="Movie 1" />
-              </ListItem>
-              <ListItem sx={{ pl: 0, pb: 0 }}>
-                <ListItemText primary="Movie 2" />
-              </ListItem>
-              <ListItem sx={{ pl: 0, pb: 0 }}>
-                <ListItemText primary="Movie 3" />
-              </ListItem>
+              <Box sx={{ maxHeight: "30vh", overflow: "auto" }}>
+                <ListItem sx={{ pl: 0, pb: 0 }}>
+                  <ListItemText primary="Movie 1" />
+                </ListItem>
+                <ListItem sx={{ pl: 0, pb: 0 }}>
+                  <ListItemText primary="Movie 2" />
+                </ListItem>
+                <ListItem sx={{ pl: 0, pb: 0 }}>
+                  <ListItemText primary="Movie 3" />
+                </ListItem>
+              </Box>
             </List>
           </Demo>
         </Grid>

@@ -5,15 +5,16 @@ import MovieSearch from "../components/MovieSearch";
 import MovieList from "../components/MovieList";
 
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const Home: NextPage = () => {
   return (
     <Box
       sx={{
-        height: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Head>
@@ -29,9 +30,25 @@ const Home: NextPage = () => {
 
       <Box
         sx={{
-          p: { xs: "15px", sm: "50px", md: "250px", lg: "350px", xl: "500px" },
+          marginY: { xs: "50px" },
+          width: {
+            xs: "340px",
+            sm: "450px",
+            md: "650px",
+            lg: "850px",
+            xl: "1000px",
+          },
         }}
       >
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="h3" component="h1" gutterBottom>
+            OMDb API
+          </Typography>
+          <Typography variant="subtitle1" component="div" gutterBottom>
+            The Open Movie Database 🍿
+          </Typography>
+        </Box>
+
         <MovieSearch />
         <MovieList />
       </Box>
