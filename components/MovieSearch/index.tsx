@@ -1,5 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+
+import { getMoviesAsync } from "../../redux/movies/services";
+import { setSearchText } from "../../redux/movies/moviesSlice";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -8,7 +12,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 
-interface SearchText {
+interface Search {
   text: string;
 }
 
@@ -34,14 +38,30 @@ const CssTextField = styled(TextField)({
 });
 
 function MovieSearch() {
-  const formik = useFormik<SearchText>({
+  const dispatch = useDispatch();
+  const formik = useFormik<Search>({
     initialValues: {
       text: "",
     },
     onSubmit: (values) => {
-      console.log("values => ", values);
+      if (values.text === "") return;
+      onSearch(values);
     },
   });
+
+  function onSearch(values: Search) {
+    dispatch(setSearchText(values.text));
+    dispatch(getMoviesAsync(values.text));
+  }
+
+  function handleClear() {
+    if (formik.values.text !== "") {
+      formik.resetForm();
+      dispatch(getMoviesAsync(""));
+      dispatch(setSearchText(""));
+    }
+  }
+
   return (
     <Box>
       <Paper
@@ -64,10 +84,12 @@ function MovieSearch() {
             onChange={formik.handleChange}
             value={formik.values.text}
             name="text"
-            autoComplete="false"
+            sx={{ width: "100%" }}
           />
           <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-            <Button variant="text">Clear</Button>
+            <Button variant="text" onClick={handleClear}>
+              Clear
+            </Button>
             <Button
               sx={{ ml: 1 }}
               variant="contained"

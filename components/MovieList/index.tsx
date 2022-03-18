@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -8,12 +9,26 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import { Movie } from "../../models/movie";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
 function MovieList() {
+  const movies = useSelector((state: any) => state.movies.movies?.Search);
+  const isLoading = useSelector((state: any) => state.movies.isLoading);
+  const error = useSelector((state: any) => state.movies.error);
+  const searchText = useSelector((state: any) => state.movies.searchText);
+
+  if (isLoading) {
+    return <Box>Yükleniyor...</Box>;
+  }
+
+  if (error) {
+    return <Box>Hata: {error}</Box>;
+  }
+
   return (
     <Box>
       <Paper
@@ -25,27 +40,36 @@ function MovieList() {
         }}
         elevation={0}
       >
-        <Typography variant="h5" component="h2" gutterBottom>
-          Results for --Search--
-        </Typography>
-
-        <Typography variant="caption" display="block" gutterBottom>
-          tap on a movie title to learn more about it
-        </Typography>
+        {searchText ? (
+          <>
+            <Typography variant="h5" component="h2" gutterBottom>
+              Results for &ldquo;{searchText}&rdquo;
+            </Typography>
+            <Typography variant="caption" display="block" gutterBottom>
+              tap on a movie title to learn more about it
+            </Typography>
+          </>
+        ) : (
+          <Typography variant="caption" display="block" gutterBottom>
+            Search a movie...
+          </Typography>
+        )}
 
         <Grid item xs={12} md={6}>
           <Demo>
             <List>
               <Box sx={{ maxHeight: "30vh", overflow: "auto" }}>
-                <ListItem sx={{ pl: 0, pb: 0 }}>
-                  <ListItemText primary="Movie 1" />
-                </ListItem>
-                <ListItem sx={{ pl: 0, pb: 0 }}>
-                  <ListItemText primary="Movie 2" />
-                </ListItem>
-                <ListItem sx={{ pl: 0, pb: 0 }}>
-                  <ListItemText primary="Movie 3" />
-                </ListItem>
+                {movies ? (
+                  movies.map((movie: Movie, index: number) => (
+                    <ListItem key={`movie-${index}`} sx={{ pl: 0, pb: 0 }}>
+                      <ListItemText primary={movie.Title} />
+                    </ListItem>
+                  ))
+                ) : (
+                  <Typography variant="h5" component="h2" gutterBottom>
+                    There is nothing.
+                  </Typography>
+                )}
               </Box>
             </List>
           </Demo>
