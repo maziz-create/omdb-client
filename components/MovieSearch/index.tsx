@@ -1,4 +1,5 @@
 import React from "react";
+import { useFormik } from "formik";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -6,6 +7,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
+
+interface SearchText {
+  text: string;
+}
 
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -29,6 +34,14 @@ const CssTextField = styled(TextField)({
 });
 
 function MovieSearch() {
+  const formik = useFormik<SearchText>({
+    initialValues: {
+      text: "",
+    },
+    onSubmit: (values) => {
+      console.log("values => ", values);
+    },
+  });
   return (
     <Box>
       <Paper
@@ -44,11 +57,26 @@ function MovieSearch() {
         <Typography variant="h5" component="h2" gutterBottom>
           Movie Title
         </Typography>
-        <CssTextField label="Search" id="custom-css-outlined-input" />
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-          <Button variant="text">Clear</Button>
-          <Button variant="contained">Search</Button>
-        </Box>
+        <form onSubmit={formik.handleSubmit}>
+          <CssTextField
+            label="Search"
+            id="custom-css-outlined-input"
+            onChange={formik.handleChange}
+            value={formik.values.text}
+            name="text"
+            autoComplete="false"
+          />
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+            <Button variant="text">Clear</Button>
+            <Button
+              sx={{ ml: 1 }}
+              variant="contained"
+              onClick={() => formik.submitForm()}
+            >
+              Search
+            </Button>
+          </Box>
+        </form>
       </Paper>
     </Box>
   );
