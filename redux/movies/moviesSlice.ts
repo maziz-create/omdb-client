@@ -36,7 +36,12 @@ export const moviesSlice = createSlice({
       state: MoviesState,
       action: any
     ) => {
-      state.movies = action.payload;
+      if (action.payload?.Error) {
+        state.error = action.payload.Error;
+      } else {
+        if (state.error !== "") state.error = "";
+        state.movies = action.payload;
+      }
       state.isLoading = false;
     },
     [getMoviesAsync.rejected.toString()]: (state: MoviesState, action: any) => {

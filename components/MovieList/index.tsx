@@ -43,7 +43,7 @@ function MovieList() {
         {searchText ? (
           <>
             <Typography variant="h5" component="h2" gutterBottom>
-              Results for &ldquo;{searchText}&rdquo;
+              Results for &ldquo;{searchText}&rdquo; {movies?.length} records
             </Typography>
             <Typography variant="caption" display="block" gutterBottom>
               tap on a movie title to learn more about it
