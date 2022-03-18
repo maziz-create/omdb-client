@@ -1,11 +1,21 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+
+import MovieSearch from "../components/MovieSearch";
+import MovieList from "../components/MovieList";
+
+import Box from "@mui/material/Box";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <Head>
         <title>The Open Movie Database</title>
         <meta
@@ -16,7 +26,16 @@ const Home: NextPage = () => {
         <meta name="author" content="Mehmet Aziz Algüllü" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    </div>
+
+      <Box
+        sx={{
+          p: { xs: "15px", sm: "50px", md: "250px", lg: "350px", xl: "500px" },
+        }}
+      >
+        <MovieSearch />
+        <MovieList />
+      </Box>
+    </Box>
   );
 };
 
