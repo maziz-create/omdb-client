@@ -11,6 +11,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@mui/material/InputAdornment";
 
 interface Search {
   text: string;
@@ -78,14 +83,21 @@ function MovieSearch() {
           Movie Title
         </Typography>
         <form onSubmit={formik.handleSubmit}>
-          <CssTextField
-            label="Search"
-            id="custom-css-outlined-input"
-            onChange={formik.handleChange}
-            value={formik.values.text}
-            name="text"
-            sx={{ width: "100%" }}
-          />
+          <FormControl fullWidth sx={{ marginY: 1 }}>
+            <InputLabel htmlFor="outlined-adornment-amount">Search</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              name="text"
+              onChange={formik.handleChange}
+              value={formik.values.text}
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+              label="Search"
+            />
+          </FormControl>
           <Box
             sx={{
               display: "flex",
