@@ -86,12 +86,30 @@ function MovieSearch() {
             name="text"
             sx={{ width: "100%" }}
           />
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-            <Button variant="text" onClick={handleClear}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              mb: 2,
+            }}
+          >
+            <Button
+              variant="text"
+              sx={{ color: "#50B83C" }}
+              onClick={handleClear}
+            >
               Clear
             </Button>
             <Button
-              sx={{ ml: 1 }}
+              sx={{
+                ml: 1,
+                borderRadius: "32px",
+                backgroundColor: "#50B83C",
+                "&:hover": {
+                  backgroundColor: "#50B83C",
+                  boxShadow: " 0px 0px 12px rgba(0, 0, 0, 0.25)",
+                },
+              }}
               variant="contained"
               onClick={() => formik.submitForm()}
             >
